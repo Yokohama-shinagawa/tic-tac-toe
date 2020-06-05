@@ -58,6 +58,7 @@ function Square(props) {
         }],
         stepNumber:0,
         xIsNext:true,
+        order: "ascending",
       }
     }
 
@@ -85,23 +86,40 @@ function Square(props) {
       })
     }
 
+    changeOrder(){
+      if(this.state.order === "decending"){
+        this.setState({
+          order: "ascending",
+        })
+      }else{
+        this.setState({
+          order: "decending",
+        })
+      }
+    }
+
     render() {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares)
 
-      const moves = history.map((step,move) => {
+      let moves = history.map((step,move) => {
         const desc = move ?
           'Go to move #' + move :
           'Go to game start';
           return(
             <li key={move}>
-              <button onClick={() => this.jumpTo(move)}>{desc}
-
+              <button onClick={() => this.jumpTo(move)}>
+                {desc}
               </button>
             </li>
           )
       })
+
+      if (this.state.order === "decending"){
+        moves = moves.reverse()
+      }
+
       let status;
       if (winner) {
         status = 'Winner: ' + winner;
@@ -118,8 +136,13 @@ function Square(props) {
             />
           </div>
           <div className="game-info">
-            <div>{status}</div>
-            <ol>{moves}</ol>
+            <div　className="status">{status}</div>
+            <button
+              onClick={() => this.changeOrder()}
+            >
+              {this.state.order} order
+            </button>
+            <ul>{moves}</ul>
           </div>
         </div>
       );

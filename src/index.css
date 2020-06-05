@@ -48,3 +48,12 @@ body {
   .game-info {
     margin-left: 20px;
   }
+
+  .status{
+    display: inline;
+    margin-right:15px ;
+  }
+
+  li{
+    text-decoration: none;
+  }
