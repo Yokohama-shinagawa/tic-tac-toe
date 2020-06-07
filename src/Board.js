@@ -36,10 +36,7 @@ class Board extends React.Component {
       for (let j = 0; j < row; j++) {
         isHighlight = false;
         let num = j + i * 3;
-        if (
-          lineList &&
-          lineList.includes(num)
-        ) {
+        if (lineList && lineList.includes(num)) {
           isHighlight = true;
         }
         mini_items.push(this.renderSquare(num, isHighlight));

@@ -78,9 +78,13 @@ class Game extends React.Component {
 
     let status;
     if (settlement) {
-      status = "Winner: " + settlement.winner;
+      if (settlement.winner === "O" || settlement.winner === "X") {
+        status = "Winner: " + settlement.winner;
+      } else {
+        status = "今回の勝負は引き分けです！";
+      }
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "0");
+      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
 
     return (
@@ -117,10 +121,16 @@ function calculateWinner(squares) {
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
+
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return {
         winner: squares[a],
         line: [a, b, c],
+      };
+    }
+    if (squares.includes(null) === false) {
+      return {
+        winner: "引き分け！！！！",
       };
     }
   }
